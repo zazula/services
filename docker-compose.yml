@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  puppeteer:
+    image: browserless/chrome:latest
+    container_name: puppeteer
+    ports:
+      - "${PUPPETEER_PORT:-3000}:3000"
+    environment:
+      - PREBOOT_CHROME=true
+      - MAX_CONCURRENT_SESSIONS=1
+
+  google_cse_proxy:
+    build:
+      context: ./google_cse_proxy
+      dockerfile: Dockerfile
+    container_name: google_cse_proxy
+    ports:
+      - "${GOOGLE_CSE_PROXY_PORT:-5001}:5000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_CSE_ID=${GOOGLE_CSE_ID}
