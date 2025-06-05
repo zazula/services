@@ -17,6 +17,27 @@ services:
     container_name: google_cse_proxy
     ports:
       - "${GOOGLE_CSE_PROXY_PORT:-5001}:5000"
+  mcp-service:
+    build:
+      context: ./mcp-service
+      dockerfile: Dockerfile
+    container_name: mcp-service
+    ports:
+      - "${MCP_SERVICE_PORT:-5002}:8000"
+  openapi-service:
+    build:
+      context: ./openapi-service
+      dockerfile: Dockerfile
+    container_name: openapi-service
+    ports:
+      - "${OPENAPI_SERVICE_PORT:-5003}:8000"
+  pipeline-service:
+    build:
+      context: ./pipeline-service
+      dockerfile: Dockerfile
+    container_name: pipeline-service
+    ports:
+      - "${PIPELINE_SERVICE_PORT:-5004}:8000"
     environment:
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - GOOGLE_CSE_ID=${GOOGLE_CSE_ID}
